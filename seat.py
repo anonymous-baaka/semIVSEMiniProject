@@ -34,7 +34,7 @@ if __name__!='__main__':
     def insertButton(frame):     #frame
         global ButtonList
         global rowNumber
-        for i in range(10):
+        for i in range(7):
             ButtonRow=[]
             for j in range(10):
                 ButtonRow.append(tkinter.Button(frame,width=8,height=4,text=str(chr(i+65))+str(j),command=lambda row=i,column=j:seatSelected(row,column),relief="raised"))

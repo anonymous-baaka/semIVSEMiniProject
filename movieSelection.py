@@ -40,17 +40,17 @@ class insertPanel:
         self.titleNcastFrame.grid(row=self.row,column=1)
 
     def setTitleButton(self):
-        self.titleButton = tkinter.Button(self.titleNcastFrame, text='Title', width=5, height=2)
+        self.titleButton = tkinter.Button(self.titleNcastFrame, text='Title', width=5, height=1)
         self.titleButton.grid(row=0, column=1)
 
     def setTitle(self):
-        self.TitleText=tkinter.Text(self.titleNcastFrame,width=len(self.Movie.title),height=2)
+        self.TitleText=tkinter.Text(self.titleNcastFrame,width=len(self.Movie.title),height=1)
         self.TitleText.insert('insert',self.Movie.title)
         self.TitleText.config(state=tkinter.DISABLED)
         self.TitleText.grid(row=1,column=1)
 
     def setCastButton(self):
-        self.castButton=tkinter.Button(self.titleNcastFrame,text='Cast',width=4,height=2)
+        self.castButton=tkinter.Button(self.titleNcastFrame,text='Cast',width=4,height=1)
         self.castButton.grid(row=2,column=1)
 
     def setCast(self):
@@ -72,7 +72,7 @@ Framelist = []
 
 def create(root,emailID):
     row=0
-    #root.geometry('800x600')
+    root.geometry('800x600')
     canvas=tkinter.Canvas(root)
     canvas.pack()
     MovieList = movieList.getMovieList()

@@ -1,5 +1,6 @@
 
 if __name__!='__main__':
+
     import tkinter
     ButtonList=[]
     remainingSeats=1
@@ -32,13 +33,21 @@ if __name__!='__main__':
                 insertAmountText(root)
 
     def insertButton(frame):     #frame
+        global priceList
         global ButtonList
         global rowNumber
+        global basePrice
         for i in range(7):
             ButtonRow=[]
             for j in range(10):
                 ButtonRow.append(tkinter.Button(frame,width=8,height=4,text=str(chr(i+65))+str(j),command=lambda row=i,column=j:seatSelected(row,column),relief="raised"))
                 ButtonRow[-1].grid(row=i+1,column=j,padx=2,pady=2)
+            priceList.append(basePrice+(7-i)*10)
+            rowPrice=tkinter.Text(frame,height=1,width=5)
+            rowPrice.insert('insert',str(priceList[-1]))
+            rowPrice.config(state=tkinter.DISABLED)
+            rowPrice.grid(row=i+1,column=10)
+
             ButtonList.append(ButtonRow)
             rowNumber+=10
             #tkinter.Button(root).pack()
@@ -111,23 +120,32 @@ if __name__!='__main__':
         global selectedSeatList
         global costPerTicket
         global tax
+        global priceList
 
         stringText=tkinter.Text(root,height=1,width=len('Total Amount='))
         stringText.insert('insert','Total Amount=')
         stringText.config(state=tkinter.DISABLED)
         stringText.grid(row=2,column=0)
 
-        text=str(len(selectedSeatList)*costPerTicket+tax*len(selectedSeatList)*costPerTicket)
-        amountText=tkinter.Text(root,height=2,width=len(text))
-        amountText.insert('insert',text)
+        totalCost=0
+        for seat in selectedSeatList:
+            totalCost=totalCost+priceList[ord(seat['text'][0])-65]
+        totalCost=str(totalCost+tax*totalCost)
+        print("total Cost= ",totalCost)
+
+        amountText=tkinter.Text(root,height=2,width=len(totalCost))
+        amountText.insert('insert',totalCost)
         amountText.config(state=tkinter.DISABLED)
         amountText.grid(row=2,column=1)
 
+    basePrice=100
     costPerTicket=200
     tax=0.18
     root = tkinter.Tk()
     optionsMenu=None
+    priceList=[]
     def create(title,emailID):
+
         global root
         global remainingSeats
         insertTextBox(root,'select seats')
@@ -145,3 +163,5 @@ if __name__!='__main__':
 
 
         root.mainloop()
+
+    create('GOT','abc')
